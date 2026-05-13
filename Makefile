@@ -11,4 +11,4 @@ $(TARGET): $(OBJ)
 	$(CC) $(CFLAGS) -o $@ $^
 
 clean:
-	rm -f src/*.o $(TARGET)
+	del /f src\*.o $(TARGET).exe
