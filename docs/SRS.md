@@ -1,12 +1,12 @@
-##**Purpose**
+## **Purpose**
     
 For now, be able to effectively control the altitude of a drone in a noisy environement
 
-##**Scope**
+## **Scope**
 
 This program will simulate the PID process
 
-##**Functional Requirements**
+## **Functional Requirements**
 
 (REQ1)The system shall output a control signal within the range of [TBD] 
 
@@ -24,13 +24,13 @@ This program will simulate the PID process
 
 (REQ8)The system shall complete each control loop iteration within [TBD] milliseconds
 
-##**Non-functional Requirements**
+## **Non-functional Requirements**
 
 (REQ9)The system shall be written in C, conforming to the C99 standard
 
 (REQ10)The system shall be written and maintained using an Agile approach
 
-##**Interface Requirements**
+## **Interface Requirements**
 
 The input is process variable, that is in this case elevation
 The output is a control signal that tells the drone whether to go up or down
