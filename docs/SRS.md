@@ -10,7 +10,7 @@ Functional Requirements —
     (REQ5)The system shall handle invalid states and properly throw errors
     (REQ6)The system shall maintain altitude within ±[TBD] meters of the target under simulated mass disturbance of [TBD]
     (REQ7)The system shall asssume low-to-none deadtime
-    (REQ8)The system shall complete each control loop iteration within 100 milliseconds
+    (REQ8)The system shall complete each control loop iteration within [TBD] milliseconds
 Non-functional Requirements — 
     (REQ9)The system shall be written in C, conforming to the C99 standard
     (REQ10)The system shall be written and maintained using an Agile approach
