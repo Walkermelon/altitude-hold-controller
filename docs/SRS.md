@@ -9,12 +9,19 @@ This program will simulate the PID process
 ##**Functional Requirements**
 
 (REQ1)The system shall output a control signal within the range of [TBD] 
+
 (REQ2)The system shall have a real time input-output loop
+
 (REQ3)The system shall log simulation data to a CSV file for external visualization
+
 (REQ4)The system shall report rise time, percent overshoot, settle time, and steady-state error at the end of each simulation run
+
 (REQ5)The system shall handle invalid states and properly throw errors
+
 (REQ6)The system shall maintain altitude within ±[TBD] meters of the target under simulated mass disturbance of [TBD]
+
 (REQ7)The system shall asssume low-to-none deadtime
+
 (REQ8)The system shall complete each control loop iteration within [TBD] milliseconds
 
 ##**Non-functional Requirements**
