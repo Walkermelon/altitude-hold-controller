@@ -24,6 +24,8 @@ This program will simulate the PID process
 
 (REQ8)The system shall complete each control loop iteration within [TBD] milliseconds
 
+(REQ9)The system shall implement an input abstraction layer to allow interchangeable data sources without modifying control logic
+
 ## **Non-functional Requirements**
 
 (REQ9)The system shall be written in C, conforming to the C99 standard
