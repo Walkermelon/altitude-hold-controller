@@ -3,7 +3,7 @@ int main(){
     
     float currentAltitude = getAltitude();
     float previousAltitude = currentAltitude;  // Initialize previous altitude for differential calculation
-    float setPoint = 100.0f;  // Desired altitude (for testing purposes)
+    float setPoint = getSetPoint();  // Retrieve the desired set point
     float kp = 1.0f;  // Proportional gain (for testing purposes)
     float ki = 0.1f;  // Integral gain (for testing purposes)
     float kd = 0.05f; // Differential gain (for testing purposes)
@@ -20,10 +20,12 @@ int main(){
         // For testing purposes, print the control output
         printf("Control Output: %f\n", controlOutput);
 
-
-        
+        // Set the throttle based on the control output (for testing purposes)
+        setThrottle(controlOutput);
 
         //iterate next altitude reading
+        setPoint = getSetPoint();  // Update set point if needed
+        previousAltitude = currentAltitude;  // Update previous altitude for the next iteration
         currentAltitude = getAltitude();
     }
 
