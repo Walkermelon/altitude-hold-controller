@@ -26,6 +26,8 @@ This program will simulate the PID process
 
 (REQ9)The system shall implement an input abstraction layer to allow interchangeable data sources without modifying control logic
 
+(REQ10)The system shall clamp the PID output to a valid control signal range of [TBD]
+
 ## **Non-functional Requirements**
 
 (REQ10)The system shall be written in C, conforming to the C99 standard
