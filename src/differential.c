@@ -1,5 +1,6 @@
 #include "differential.h"
 float differential(float currentAltitude, float previousAltitude) {
     // Placeholder for the actual differential calculation
-    return 0.0f;  // Return a dummy value for now
+    float derivative = currentAltitude - previousAltitude;
+    return derivative;  // Simple differential calculation (adjust as needed)
 }

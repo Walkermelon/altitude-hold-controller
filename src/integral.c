@@ -1,5 +1,5 @@
 #include "integral.h"
-float integral(float currentAltitude, float setPoint) {
+float integral(float currentAltitude, float sumError, float setPoint) {
     // Placeholder for the actual integral calculation
-    return 0.0f;  // Return a dummy value for now
+    return sumError + (currentAltitude - setPoint);  // Simple integral calculation (adjust as needed)
 }
