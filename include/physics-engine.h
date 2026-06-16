@@ -1,6 +1,14 @@
 #ifndef physics_engine_H_
 #define physics_engine_H_
-
-void sim(void);
-
+#include <stdbool.h>
+#include <SDL3/SDL.h>
+typedef struct PhysicsEngine {
+    bool running;
+    SDL_Window *window;
+    SDL_Renderer *renderer;
+    SDL_Event event;
+} PhysicsEngine;
+void start_physics_engine(PhysicsEngine *engine);
+bool update_physics_engine(PhysicsEngine *engine);
+void stop_physics_engine(PhysicsEngine *engine);
 #endif // physics_engine_H_
