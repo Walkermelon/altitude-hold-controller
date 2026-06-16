@@ -12,7 +12,7 @@ int main(int argc, char *argv[]) {
 
     start_physics_engine(engine);
     while (update_physics_engine(engine)) {
-        SDL_SetRenderDrawColor(engine->renderer, 0, 0, 0, 255);
+        SDL_SetRenderDrawColor(engine->renderer, 150, 20, 100, 255);
         SDL_RenderClear(engine->renderer);
         SDL_RenderPresent(engine->renderer);
     }

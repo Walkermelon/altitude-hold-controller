@@ -28,7 +28,9 @@ void start_physics_engine(PhysicsEngine *engine) {
         }
         SDL_Log("Physics engine started successfully.");
     }
-    SDL_Log("Failed to initialize SDL: %s", SDL_GetError());
+    else {
+        SDL_Log("Failed to initialize SDL: %s", SDL_GetError());
+    }
 }
 
 bool update_physics_engine(PhysicsEngine *engine) {
@@ -50,5 +52,7 @@ void stop_physics_engine(PhysicsEngine *engine) {
         engine->running = false;
         SDL_Log("Physics engine stopped.");
     }
-    SDL_Log("Physics engine is not running.");
+    else{
+        SDL_Log("Physics engine is not running.");
+    }
 }
