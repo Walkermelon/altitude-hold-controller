@@ -2,16 +2,21 @@
 #include <SDL3/SDL.h>
 #include <stdlib.h>
 
-void update_ball_position(Ball *ball){
+void update_ball_position(Ball *ball, int SCREEN_WIDTH, int SCREEN_HEIGHT){
+    if(ball->x + ball->radius >= SCREEN_WIDTH || ball->x <= 0){
+        ball->vx *= -1;
+    }
+    if(ball->y + ball->radius >= SCREEN_HEIGHT || ball->y <= 0){
+        ball->vy *= -1;
+    }
     ball->x += ball->vx;
     ball->y += ball->vy;
 }
 
 void display_ball(SDL_Renderer *renderer, Ball *ball) {
     SDL_SetRenderDrawColor(renderer, ball->color.r, ball->color.g, ball->color.b, 255);
-    SDL_FRect rect = { ball->x, ball->y, 20, 20 };
+    SDL_FRect rect = { ball->x, ball->y, ball->radius, ball->radius};
     SDL_RenderFillRect(renderer, &rect);
-    SDL_RenderPresent(renderer);
 }
 
 BallList* ballListInitialize(Ball *ball) {
@@ -25,7 +30,7 @@ BallList* ballListInitialize(Ball *ball) {
     return list;
 }
 
-Ball* ballInitialize(int x, int y, int vx, int vy) {
+Ball* ballInitialize(int x, int y, int vx, int vy, int radius) {
     Ball *ball = malloc(sizeof(Ball));
     RGBColor defaultColor = {0, 0, 255}; // Default color (blue)
     if (ball == NULL) {
@@ -37,6 +42,7 @@ Ball* ballInitialize(int x, int y, int vx, int vy) {
     ball->vx = vx;
     ball->vy = vy;
     ball->color = defaultColor;
+    ball->radius = radius;
     return ball;
 }
 

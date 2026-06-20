@@ -8,7 +8,7 @@ typedef struct PhysicsEngine {
     SDL_Renderer *renderer;
     SDL_Event event;
 } PhysicsEngine;
-void start_physics_engine(PhysicsEngine *engine);
+void start_physics_engine(PhysicsEngine *engine, int SCREEN_WIDTH, int SCREEN_HEIGHT);
 bool update_physics_engine(PhysicsEngine *engine);
 void stop_physics_engine(PhysicsEngine *engine);
 #endif // physics_engine_H_

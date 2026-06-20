@@ -9,14 +9,14 @@
 #define SDL_FLAGS SDL_INIT_VIDEO | SDL_INIT_EVENTS
 
 //Assumes engine is already allocated and initialized to zero
-void start_physics_engine(PhysicsEngine *engine) {
+void start_physics_engine(PhysicsEngine *engine, int SCREEN_WIDTH, int SCREEN_HEIGHT) {
     bool start = SDL_Init(SDL_FLAGS);
     if (start == 0) {
         SDL_Log("Failed to initialize SDL: %s", SDL_GetError());
         return;
     }
     engine->running = true;
-    engine->window = SDL_CreateWindow("Hello World", 800, 600, 0);
+    engine->window = SDL_CreateWindow("Hello World", SCREEN_WIDTH, SCREEN_HEIGHT, 0);
     if (engine->window == NULL) {
         SDL_Log("Could not create window: %s", SDL_GetError());
         SDL_Quit();

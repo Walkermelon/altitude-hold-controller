@@ -4,6 +4,9 @@
 #include <SDL3/SDL_main.h>
 #include "physics-engine.h"
 #include "ball.h"
+
+#define SCREEN_WIDTH 1000
+#define SCREEN_HEIGHT 1000
 int main(int argc, char *argv[]) {
     PhysicsEngine *engine = calloc(1, sizeof(PhysicsEngine));
     if (engine == NULL) {
@@ -11,24 +14,25 @@ int main(int argc, char *argv[]) {
         return 1;
     }
 
-    BallList *ball_list = ballListInitialize(ballInitialize(400, 300, 1, 1));
-    ball_list = addBallToList(ball_list, ballInitialize(400, 300, -1, -1));
+    BallList *ball_list = ballListInitialize(ballInitialize(SCREEN_WIDTH/2, SCREEN_HEIGHT/2, 3, 1, 30));
 
-    start_physics_engine(engine);
+    start_physics_engine(engine, SCREEN_WIDTH, SCREEN_HEIGHT);
     while (update_physics_engine(engine)) {
         SDL_SetRenderDrawColor(engine->renderer, 255, 255, 255, 255);
         SDL_RenderClear(engine->renderer);
 
         BallList *current = ball_list;
         while (current != NULL) {
-            printf("Ball position: (%d, %d)\n", current->ball->x, current->ball->y);
-            update_ball_position(current->ball);
+            //printf("Ball position: (%d, %d)\n", current->ball->x, current->ball->y);
+            update_ball_position(current->ball, SCREEN_WIDTH, SCREEN_HEIGHT);
 
             display_ball(engine->renderer, current->ball);
             current = current->next;
         }
 
-        SDL_Delay(10); // Delay to cap frame rate at 100 FPS
+        SDL_RenderPresent(engine->renderer);
+
+        SDL_Delay(5); // Delay to cap frame rate at 100 FPS
     }
     stop_physics_engine(engine);
 

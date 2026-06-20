@@ -15,6 +15,7 @@ typedef struct Ball {
     int vx;
     int vy;
     RGBColor color;
+    int radius;
 } Ball;
 
 typedef struct BallList {
@@ -22,10 +23,10 @@ typedef struct BallList {
     Ball *ball;
 } BallList;
 
-void update_ball_position(Ball *ball);
+void update_ball_position(Ball *ball, int SCREEN_WIDTH, int SCREEN_HEIGHT);
 void display_ball(SDL_Renderer *renderer, Ball *ball);
 BallList* ballListInitialize(Ball *ball);
-Ball* ballInitialize(int x, int y, int vx, int vy);
+Ball* ballInitialize(int x, int y, int vx, int vy, int radius);
 void freeBallList(BallList *list);
 BallList* addBallToList(BallList *list, Ball *ball);
 
