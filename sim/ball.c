@@ -1,5 +1,6 @@
 #include "ball.h"
 #include <SDL3/SDL.h>
+#include <stdlib.h>
 
 void update_ball_position(Ball *ball){
     ball->x += ball->vx;
@@ -8,7 +9,7 @@ void update_ball_position(Ball *ball){
 
 void display_ball(SDL_Renderer *renderer, Ball *ball) {
     SDL_SetRenderDrawColor(renderer, ball->color.r, ball->color.g, ball->color.b, 255);
-    SDL_Rect rect = { ball->x, ball->y, 20, 20 };
+    SDL_FRect rect = { ball->x, ball->y, 20, 20 };
     SDL_RenderFillRect(renderer, &rect);
     SDL_RenderPresent(renderer);
 }
