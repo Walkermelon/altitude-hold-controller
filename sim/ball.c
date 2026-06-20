@@ -1,6 +1,7 @@
 #include "ball.h"
 #include <SDL3/SDL.h>
 #include <stdlib.h>
+#include <stdio.h>
 
 void update_ball_position(Ball *ball, int SCREEN_WIDTH, int SCREEN_HEIGHT){
     if(ball->x + ball->radius >= SCREEN_WIDTH || ball->x <= 0){
@@ -19,51 +20,52 @@ void display_ball(SDL_Renderer *renderer, Ball *ball) {
     SDL_RenderFillRect(renderer, &rect);
 }
 
-BallList* ballListInitialize(Ball *ball) {
-    BallList *list = malloc(sizeof(BallList));
-    if (list == NULL) {
-        SDL_LogError(SDL_LOG_CATEGORY_APPLICATION, "Failed to allocate ball list\n");
+BallList* ballListInit() {
+    BallList* ballList = malloc(sizeof(BallList));
+    if(ballList == NULL){
+        SDL_Log("Couldn't Malloc BallList");
         return NULL;
     }
-    list->ball = ball;
-    list->next = NULL;
-    return list;
+    ballList->node = NULL;
+    ballList->size = 0;
+    return ballList;
 }
 
-Ball* ballInitialize(int x, int y, int vx, int vy, int radius) {
-    Ball *ball = malloc(sizeof(Ball));
-    RGBColor defaultColor = {0, 0, 255}; // Default color (blue)
-    if (ball == NULL) {
-        SDL_LogError(SDL_LOG_CATEGORY_APPLICATION, "Failed to allocate ball\n");
+Ball* ballInit(int x, int y, int vx, int vy, int radius) {
+    Ball* ball = malloc(sizeof(Ball));
+    if(ball == NULL){
+        SDL_Log("Couldn't Malloc Ball");
         return NULL;
     }
+    ball->color.r = 0;
+    ball->color.g = 255;
+    ball->color.b = 0;
+    ball->radius = radius;
     ball->x = x;
     ball->y = y;
     ball->vx = vx;
     ball->vy = vy;
-    ball->color = defaultColor;
-    ball->radius = radius;
     return ball;
 }
 
 void freeBallList(BallList *list) {
-    BallList *current = list;
-    while (current != NULL) {
-        BallList *next = current->next;
-        free(current->ball);
-        free(current);
-        current = next;
+    BallNode* curr = list->node;
+    BallNode* next = list->node;
+    while(curr != NULL){
+        next = curr->next;
+        free(curr->ball);
+        free(curr);
+        curr = next;
     }
+    free(list);
+
 }
 
-BallList* addBallToList(BallList *list, Ball *ball) {
-    BallList *newNode = malloc(sizeof(BallList));
-    if (newNode == NULL) {
-        SDL_LogError(SDL_LOG_CATEGORY_APPLICATION, "Failed to allocate new ball list node\n");
-        return list; // Return the original list if allocation fails
-    }
-    newNode->ball = ball;
-    newNode->next = list;
-    return newNode; // New node becomes the new head of the list
+void addBallToList(BallList *list, Ball *ball) {
+    BallNode* node = malloc(sizeof(BallNode));
+    node->ball = ball;
+    node->next = list->node;
+    list->node = node;
+    list->size++;
 }
 

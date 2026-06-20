@@ -3,8 +3,8 @@
 #include <stdbool.h>
 #include <stddef.h>
 #include <stdio.h>
-
 #include <SDL3/SDL.h>
+#include <ball.h>
 
 #define SDL_FLAGS SDL_INIT_VIDEO | SDL_INIT_EVENTS
 
@@ -32,14 +32,27 @@ void start_physics_engine(PhysicsEngine *engine, int SCREEN_WIDTH, int SCREEN_HE
     SDL_Log("Physics engine started successfully.");
 }
 
-bool update_physics_engine(PhysicsEngine *engine) {
+bool update_physics_engine(PhysicsEngine *engine, BallList* list) {
     if (!engine->running) {
         return false;
     }
     while (SDL_PollEvent(&engine->event)) {
-        if (engine->event.type == SDL_EVENT_QUIT) {
+        if(engine->event.type == SDL_EVENT_QUIT){
             SDL_Log("Quit event received. Stopping main loop.");
             return false;
+        }
+        if(engine->event.type == SDL_EVENT_MOUSE_BUTTON_DOWN){
+            SDL_Log("Button Clicked");
+            if (engine->event.button.button == SDL_BUTTON_LEFT) {
+                SDL_Log("Left click");
+                int clickX = engine->event.button.x;
+                int clickY = engine->event.button.y;
+                printf("Ball placement: (%d, %d)\n", clickX, clickY);
+                addBallToList(list, ballInit(clickX-15, clickY-15, 1, 1, 30));
+                return true;
+            }
+            SDL_Log("Not left click");
+            return true;
         }
     }
     return true;

@@ -9,6 +9,7 @@ typedef struct RGBColor {
     Uint8 g;
     Uint8 b;
 } RGBColor;
+
 typedef struct Ball {
     int x;
     int y;
@@ -18,17 +19,22 @@ typedef struct Ball {
     int radius;
 } Ball;
 
-typedef struct BallList {
-    struct BallList *next;
+typedef struct BallNode {
+    struct BallNode *next;
     Ball *ball;
+} BallNode;
+
+typedef struct BallList {
+    BallNode* node;
+    int size;
 } BallList;
 
 void update_ball_position(Ball *ball, int SCREEN_WIDTH, int SCREEN_HEIGHT);
 void display_ball(SDL_Renderer *renderer, Ball *ball);
-BallList* ballListInitialize(Ball *ball);
-Ball* ballInitialize(int x, int y, int vx, int vy, int radius);
+BallList* ballListInit();
+Ball* ballInit(int x, int y, int vx, int vy, int radius);
 void freeBallList(BallList *list);
-BallList* addBallToList(BallList *list, Ball *ball);
+void addBallToList(BallList *list, Ball *ball);
 
 
 #endif // BALL_H_

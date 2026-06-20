@@ -14,18 +14,17 @@ int main(int argc, char *argv[]) {
         return 1;
     }
 
-    BallList *ball_list = ballListInitialize(ballInitialize(SCREEN_WIDTH/2, SCREEN_HEIGHT/2, 3, 1, 30));
+    BallList *ball_list = ballListInit();
 
     start_physics_engine(engine, SCREEN_WIDTH, SCREEN_HEIGHT);
-    while (update_physics_engine(engine)) {
+    while (update_physics_engine(engine, ball_list)) {
         SDL_SetRenderDrawColor(engine->renderer, 255, 255, 255, 255);
         SDL_RenderClear(engine->renderer);
 
-        BallList *current = ball_list;
+        BallNode *current = ball_list->node;
         while (current != NULL) {
             //printf("Ball position: (%d, %d)\n", current->ball->x, current->ball->y);
             update_ball_position(current->ball, SCREEN_WIDTH, SCREEN_HEIGHT);
-
             display_ball(engine->renderer, current->ball);
             current = current->next;
         }
@@ -34,11 +33,14 @@ int main(int argc, char *argv[]) {
 
         SDL_Delay(5); // Delay to cap frame rate at 100 FPS
     }
+    SDL_Log("Calling Quit");
     stop_physics_engine(engine);
 
+    SDL_Log("Freeing BallList");
     freeBallList(ball_list);
-    free(engine->renderer);
-    free(engine->window);
+    SDL_Log("Freeing Engine");
     free(engine);
+    SDL_Log("Done Freeing");
+    
     return 0;
 }
