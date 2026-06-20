@@ -28,11 +28,13 @@ int main(int argc, char *argv[]) {
             current = current->next;
         }
 
-        SDL_Delay(100); // Delay to cap frame rate at 10 FPS
+        SDL_Delay(10); // Delay to cap frame rate at 100 FPS
     }
     stop_physics_engine(engine);
 
     freeBallList(ball_list);
+    free(engine->renderer);
+    free(engine->window);
     free(engine);
     return 0;
 }
