@@ -3,7 +3,7 @@
 //This function should only controll the acceleration of the ball
 void PID(Ball *ball, float setPointX, float setPointY){
     float kp = 0.001f;  // Proportional gain (for testing purposes)
-    float ki = 0.001f;  // Integral gain (for testing purposes)
+    float ki = 0.00001f;  // Integral gain (for testing purposes)
     float kd = 0.001f; // Differential gain (for testing purposes)
 
     float errorX = setPointX - ball->x;
