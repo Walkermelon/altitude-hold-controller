@@ -4,9 +4,10 @@
 #include <SDL3/SDL_main.h>
 #include "physics-engine.h"
 #include "ball.h"
+#include "PID.h"
 
 #define SCREEN_WIDTH 1000
-#define SCREEN_HEIGHT 1000
+#define SCREEN_HEIGHT 800
 int main(int argc, char *argv[]) {
     PhysicsEngine *engine = calloc(1, sizeof(PhysicsEngine));
     if (engine == NULL) {
@@ -23,7 +24,8 @@ int main(int argc, char *argv[]) {
 
         BallNode *current = ball_list->node;
         while (current != NULL) {
-            //printf("Ball position: (%d, %d)\n", current->ball->x, current->ball->y);
+            printf("Ball position: (%d, %d)\n", current->ball->ax, current->ball->ax);
+            PID(current->ball, 500, 400);
             update_ball_position(current->ball, SCREEN_WIDTH, SCREEN_HEIGHT);
             display_ball(engine->renderer, current->ball);
             current = current->next;

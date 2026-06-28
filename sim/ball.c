@@ -10,8 +10,10 @@ void update_ball_position(Ball *ball, int SCREEN_WIDTH, int SCREEN_HEIGHT){
     if(ball->y + ball->radius >= SCREEN_HEIGHT || ball->y <= 0){
         ball->vy *= -1;
     }
-    ball->x += ball->vx;
-    ball->y += ball->vy;
+    ball->x += (int)ball->vx;
+    ball->y += (int)ball->vy;
+    ball->vx += ball->ax;
+    ball->vy += ball->ay;
 }
 
 void display_ball(SDL_Renderer *renderer, Ball *ball) {
@@ -31,7 +33,7 @@ BallList* ballListInit() {
     return ballList;
 }
 
-Ball* ballInit(int x, int y, int vx, int vy, int radius) {
+Ball* ballInit(int x, int y, float vx, float vy, int radius) {
     Ball* ball = malloc(sizeof(Ball));
     if(ball == NULL){
         SDL_Log("Couldn't Malloc Ball");
