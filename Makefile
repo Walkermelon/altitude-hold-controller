@@ -9,12 +9,7 @@ all: $(TARGET)
 
 $(TARGET): $(OBJ)
 	$(CC) $(CFLAGS) -o $@ $^ $(LDFLAGS)
+
 clean:
-	del /f src\*.o sim\*.o $(TARGET).exe
-
-
-#memcheck: CFLAGS += -fsanitize=address
-#memcheck: LDFLAGS += -fsanitize=address
-#memcheck: clean $(TARGET)
-#	./$(TARGET).exe
+	rm -f src/*.o sim/*.o $(TARGET)
 
