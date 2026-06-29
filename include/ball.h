@@ -19,6 +19,9 @@ typedef struct Ball {
     float ay;
     float sumErrorX;
     float sumErrorY;
+    float kp;
+    float ki;
+    float kd;
     RGBColor color;
     int radius;
 

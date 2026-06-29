@@ -24,8 +24,8 @@ int main(int argc, char *argv[]) {
 
         BallNode *current = ball_list->node;
         while (current != NULL) {
-            printf("Ball position: (%d, %d)\n", current->ball->ax, current->ball->ax);
-            PID(current->ball, 500, 400);
+            printf("Ball Acceleration: (%d, %d)\n", current->ball->ax, current->ball->ay);
+            PID(current->ball, SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2);
             update_ball_position(current->ball, SCREEN_WIDTH, SCREEN_HEIGHT);
             display_ball(engine->renderer, current->ball);
             current = current->next;

@@ -2,17 +2,13 @@
 #include "ball.h"
 //This function should only controll the acceleration of the ball
 void PID(Ball *ball, float setPointX, float setPointY){
-    float kp = 0.001f;  // Proportional gain (for testing purposes)
-    float ki = 0.00001f;  // Integral gain (for testing purposes)
-    float kd = 0.001f; // Differential gain (for testing purposes)
-
     float errorX = setPointX - ball->x;
     float errorY = setPointY - ball->y;
 
-    ball->ax = kp * errorX + ki * ball->sumErrorX + kd * (ball->vx);
-    ball->ay = kp * errorY + ki * ball->sumErrorY + kd * (ball->vy);
+    ball->ax = ball->kp * errorX + ball->ki * ball->sumErrorX + ball->kd * (ball->vx);
+    ball->ay = ball->kp * errorY + ball->ki * ball->sumErrorY + ball->kd * (ball->vy);
 
-    ball->sumErrorX += errorX * ki;
-    ball->sumErrorY += errorY * ki;
+    ball->sumErrorX += errorX * ball->ki;
+    ball->sumErrorY += errorY * ball->ki;
 
 }
