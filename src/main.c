@@ -16,6 +16,7 @@ int main(int argc, char *argv[]) {
     }
 
     BallList *ball_list = ballListInit();
+    BallList *ball_list_settled = ballListInit();
 
     start_physics_engine(engine, SCREEN_WIDTH, SCREEN_HEIGHT);
     while (update_physics_engine(engine, ball_list)) {
@@ -35,11 +36,14 @@ int main(int argc, char *argv[]) {
 
         SDL_Delay(5); // Delay to cap frame rate at 100 FPS
     }
+    printBalls(ball_list_settled);
+
+    
     SDL_Log("Calling Quit");
     stop_physics_engine(engine);
-
     SDL_Log("Freeing BallList");
     freeBallList(ball_list);
+    freeBallList(ball_list_settled);
     SDL_Log("Freeing Engine");
     free(engine);
     SDL_Log("Done Freeing");

@@ -33,7 +33,10 @@ BallList* ballListInit() {
     return ballList;
 }
 
-Ball* ballInit(int x, int y, float vx, float vy, int radius) {
+Ball* ballInit(int x, int y, 
+    float vx, float vy, int radius, float kp, float ki, float kd) {
+
+        
     Ball* ball = malloc(sizeof(Ball));
     if(ball == NULL){
         SDL_Log("Couldn't Malloc Ball");
@@ -47,6 +50,13 @@ Ball* ballInit(int x, int y, float vx, float vy, int radius) {
     ball->y = y;
     ball->vx = vx;
     ball->vy = vy;
+    ball->ax = 0;
+    ball->ay = 0;
+    ball->sumErrorX = 0;
+    ball->sumErrorY = 0;
+    ball->kp = kp;
+    ball->ki = ki;
+    ball->kd = kd;
     return ball;
 }
 
@@ -69,5 +79,13 @@ void addBallToList(BallList *list, Ball *ball) {
     node->next = list->node;
     list->node = node;
     list->size++;
+}
+
+void printBalls(BallList *list) {
+    BallNode* current = list->node;
+    while (current != NULL) {
+        printf("kp: (%f), ki: (%f), kd: (%f)\n", current->ball->kp, current->ball->ki, current->ball->kd);
+        current = current->next;
+    }
 }
 

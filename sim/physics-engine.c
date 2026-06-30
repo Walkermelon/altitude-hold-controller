@@ -48,7 +48,7 @@ bool update_physics_engine(PhysicsEngine *engine, BallList* list) {
                 int clickX = engine->event.button.x;
                 int clickY = engine->event.button.y;
                 printf("Ball placement: (%d, %d)\n", clickX, clickY);
-                addBallToList(list, ballInit(clickX-15, clickY-15, 1, 1, 30));
+                addBallToList(list, ballInit(clickX-15, clickY-15, 0, 0, 30, 0.01, 0.0001, 0.1));
                 return true;
             }
             SDL_Log("Not left click");
