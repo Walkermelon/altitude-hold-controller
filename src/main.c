@@ -5,6 +5,7 @@
 #include "physics-engine.h"
 #include "ball.h"
 #include "PID.h"
+#include "ui.h"
 
 #define SCREEN_WIDTH 1000
 #define SCREEN_HEIGHT 800
@@ -19,27 +20,37 @@ int main(int argc, char *argv[]) {
     BallList *ball_list_settled = ballListInit();
 
     start_physics_engine(engine, SCREEN_WIDTH, SCREEN_HEIGHT);
-    while (update_physics_engine(engine, ball_list)) {
+    UI *ui = ui_init(engine->window, engine->renderer);
+    PIDGains gains = { .kp = 0.01f, .ki = 0.0001f, .kd = 0.1f };
+
+    while (update_physics_engine(engine, ball_list, ui)) {
+        ui_build_panel(ui, &gains);
+
         SDL_SetRenderDrawColor(engine->renderer, 255, 255, 255, 255);
         SDL_RenderClear(engine->renderer);
 
         BallNode *current = ball_list->node;
         while (current != NULL) {
-            printf("Ball Acceleration: (%d, %d)\n", current->ball->ax, current->ball->ay);
+            //printf("Ball Acceleration: (%f, %f)\n", current->ball->ax, current->ball->ay);
+            current->ball->kp = gains.kp;
+            current->ball->ki = gains.ki;
+            current->ball->kd = gains.kd;
             PID(current->ball, SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2);
             update_ball_position(current->ball, SCREEN_WIDTH, SCREEN_HEIGHT);
             display_ball(engine->renderer, current->ball);
             current = current->next;
         }
 
+        ui_render(ui);
         SDL_RenderPresent(engine->renderer);
 
         SDL_Delay(5); // Delay to cap frame rate at 100 FPS
     }
     printBalls(ball_list_settled);
 
-    
+
     SDL_Log("Calling Quit");
+    ui_shutdown(ui);
     stop_physics_engine(engine);
     SDL_Log("Freeing BallList");
     freeBallList(ball_list);
@@ -47,6 +58,6 @@ int main(int argc, char *argv[]) {
     SDL_Log("Freeing Engine");
     free(engine);
     SDL_Log("Done Freeing");
-    
+
     return 0;
 }

@@ -32,29 +32,30 @@ void start_physics_engine(PhysicsEngine *engine, int SCREEN_WIDTH, int SCREEN_HE
     SDL_Log("Physics engine started successfully.");
 }
 
-bool update_physics_engine(PhysicsEngine *engine, BallList* list) {
+bool update_physics_engine(PhysicsEngine *engine, BallList* list, UI *ui) {
     if (!engine->running) {
         return false;
     }
+    ui_begin_input(ui);
     while (SDL_PollEvent(&engine->event)) {
+        ui_process_event(ui, &engine->event);
         if(engine->event.type == SDL_EVENT_QUIT){
             SDL_Log("Quit event received. Stopping main loop.");
+            ui_end_input(ui);
             return false;
         }
         if(engine->event.type == SDL_EVENT_MOUSE_BUTTON_DOWN){
             SDL_Log("Button Clicked");
-            if (engine->event.button.button == SDL_BUTTON_LEFT) {
+            if (engine->event.button.button == SDL_BUTTON_LEFT && !ui_is_hovered(ui)) {
                 SDL_Log("Left click");
                 int clickX = engine->event.button.x;
                 int clickY = engine->event.button.y;
                 printf("Ball placement: (%d, %d)\n", clickX, clickY);
                 addBallToList(list, ballInit(clickX-15, clickY-15, 0, 0, 30, 0.01, 0.0001, 0.1));
-                return true;
             }
-            SDL_Log("Not left click");
-            return true;
         }
     }
+    ui_end_input(ui);
     return true;
 }
 
