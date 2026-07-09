@@ -10,6 +10,10 @@ typedef struct PIDGains {
     float kd;
 } PIDGains;
 
+typedef struct WindConfig {
+    float speed;
+} WindConfig;
+
 typedef struct UI UI;
 
 UI* ui_init(SDL_Window *window, SDL_Renderer *renderer);
@@ -17,7 +21,7 @@ void ui_process_event(UI *ui, SDL_Event *event);
 void ui_begin_input(UI *ui);
 void ui_end_input(UI *ui);
 bool ui_is_hovered(UI *ui);
-void ui_build_panel(UI *ui, PIDGains *gains);
+void ui_build_panel(UI *ui, PIDGains *gains, WindConfig *wind);
 void ui_render(UI *ui);
 void ui_shutdown(UI *ui);
 

@@ -55,9 +55,9 @@ bool ui_is_hovered(UI *ui) {
     return nk_window_is_any_hovered(ui->ctx) || nk_item_is_any_active(ui->ctx);
 }
 
-void ui_build_panel(UI *ui, PIDGains *gains) {
+void ui_build_panel(UI *ui, PIDGains *gains, WindConfig *wind) {
     struct nk_context *ctx = ui->ctx;
-    if (nk_begin(ctx, "PID Tuning", nk_rect(20, 20, 260, 200),
+    if (nk_begin(ctx, "PID Tuning", nk_rect(20, 20, 260, 240),
             NK_WINDOW_BORDER | NK_WINDOW_MOVABLE | NK_WINDOW_TITLE)) {
         nk_layout_row_dynamic(ctx, 20, 1);
         nk_labelf(ctx, NK_TEXT_LEFT, "kp: %.5f", (double)gains->kp);
@@ -68,6 +68,9 @@ void ui_build_panel(UI *ui, PIDGains *gains) {
 
         nk_labelf(ctx, NK_TEXT_LEFT, "kd: %.5f", (double)gains->kd);
         nk_slider_float(ctx, 0.0f, &gains->kd, 1.0f, 0.001f);
+
+        nk_labelf(ctx, NK_TEXT_LEFT, "gust speed: %.2f", (double)wind->speed);
+        nk_slider_float(ctx, 0.0f, &wind->speed, 5.0f, 0.05f);
     }
     nk_end(ctx);
 }
