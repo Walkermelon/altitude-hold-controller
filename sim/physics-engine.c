@@ -16,7 +16,7 @@ void start_physics_engine(PhysicsEngine *engine, int SCREEN_WIDTH, int SCREEN_HE
         return;
     }
     engine->running = true;
-    engine->window = SDL_CreateWindow("Hello World", SCREEN_WIDTH, SCREEN_HEIGHT, 0);
+    engine->window = SDL_CreateWindow("PID", SCREEN_WIDTH, SCREEN_HEIGHT, 0);
     if (engine->window == NULL) {
         SDL_Log("Could not create window: %s", SDL_GetError());
         SDL_Quit();
